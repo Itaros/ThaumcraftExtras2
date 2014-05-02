@@ -72,7 +72,7 @@ public class BlockAdvancedAltar extends BlockContainer{
 					TileEntityAdvancedAltar altar = (TileEntityAdvancedAltar)tile;
 					if(altar.getStackInSlot(0) == null){
 						altar.setInventorySlotContents(0, player.getCurrentEquippedItem().copy());
-							
+						world.markBlockForUpdate(x, y, z);//Because only one side
 						if(player.getCurrentEquippedItem().stackSize > 1)
 							player.getCurrentEquippedItem().stackSize--;
 						else

@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -24,12 +25,16 @@ public class TileEntityAdvancedAltarRenderer extends TileEntitySpecialRenderer{
 		TileEntityAdvancedAltar altar = (TileEntityAdvancedAltar)tile;
 		renderBlockModel(x, y, z);
 
-		if(altar.getStackInSlot(0) != null){
-			renderItem(altar, x, y, z, f);
+		ItemStack renderedOne = altar.getStackInSlot(0);
+		
+		//renderedOne = new ItemStack(Blocks.cobblestone);
+		
+		if(renderedOne != null){
+			renderItem(altar, x, y, z, f,renderedOne);
 		}
 	}
 	
-	public void renderItem(TileEntityAdvancedAltar altar, double x, double y, double z, float f)
+	public void renderItem(TileEntityAdvancedAltar altar, double x, double y, double z, float f, ItemStack renderedOne)
 	{
 		System.out.println("IT GETS HERE");
         OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
@@ -44,18 +49,18 @@ public class TileEntityAdvancedAltarRenderer extends TileEntitySpecialRenderer{
  		GL11.glTranslatef((float)x + 0.5F, (float)y + 1.15F + h, (float)z + 0.5F);
  		GL11.glRotatef(ticks % 360.0F, 0.0F, 1.0F, 0.0F);
  		
- 		if (altar.getStackInSlot(0).getItem() instanceof ItemBlock){
+ 		if (renderedOne.getItem() instanceof ItemBlock){
  			GL11.glScalef(2.0F, 2.0F, 2.0F);
  		} else {
  			GL11.glScalef(1.0F, 1.0F, 1.0F);
  		}
  		
- 		ItemStack ist = altar.getStackInSlot(0).copy();
+ 		ItemStack ist = renderedOne.copy();
  		ist.stackSize = 1;
  		entityitem = new EntityItem(altar.getWorldObj(), 0.0D, 0.0D, 0.0D, ist);
  		entityitem.hoverStart = 0.0F;
  		
- 		if (altar.getStackInSlot(0).stackSize == 0) {
+ 		if (renderedOne.stackSize == 0) {
  			GL11.glEnable(3042);
  			GL11.glBlendFunc(770, 1);
  			GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.85F);

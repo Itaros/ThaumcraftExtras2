@@ -22,9 +22,9 @@ import thaumcraftextras.api.core.recipes.AdvancedAltarRecipeManager;
 public class TileEntityAdvancedAltar extends TileEntity implements ISidedInventory, IAspectContainer, IEssentiaTransport{
 	public TileEntityAdvancedAltar()
 	{
-		stacks = new ItemStack[1];
+		
 	}
-    ItemStack[] stacks;
+    ItemStack[] stacks = new ItemStack[1];
     
     @Override
     public void updateEntity()
@@ -65,7 +65,7 @@ public class TileEntityAdvancedAltar extends TileEntity implements ISidedInvento
 		super.readFromNBT(nbt);
 
 		
-		  NBTTagList tagList = nbt.getTagList("Inventory", Constants.NBT.TAG_LIST);
+		  NBTTagList tagList = nbt.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
           for (int i = 0; i < tagList.tagCount(); i++) {
                   NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
                   byte slot = tag.getByte("Slot");
